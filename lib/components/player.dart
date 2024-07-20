@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
+import 'package:pixel_adventures/components/collision_block.dart';
+import 'package:pixel_adventures/components/utils.dart';
 import 'package:pixel_adventures/pixel_adventure.dart';
 
 enum PlayerState {idle, running}
@@ -20,14 +22,21 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.1;
 
+  final double _gravity = 9.8;
+  final double _jumpForce = 460;
+  final double _terminalVelocity = 300;
+
+
   double horizontalMovement = 0;
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
+  List<CollisionBlock> collisionBlocks = [];
 
 
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();
+    debugMode = true;
     return super.onLoad();
   }
 
@@ -35,6 +44,9 @@ class Player extends SpriteAnimationGroupComponent
   void update(double dt) {
     _updatePlayerState();
     _updatePlayerMovement(dt);
+    _checkHorizontalCollisions();
+    _applyGravity(dt);
+    _checkVerticalCollisions();
     super.update(dt);
   }
 
@@ -97,7 +109,43 @@ class Player extends SpriteAnimationGroupComponent
 
         velocity.x = horizontalMovement * moveSpeed;
         position.x += velocity.x * dt;
+    } 
+
+  
+  void _checkHorizontalCollisions() {
+    for(final block in collisionBlocks) {
+      if(block.isPlatform) {
+        if(checkCollision(this, block)) {
+          if(velocity.x > 0) {
+            velocity.x = 0;
+            position.x = block.x - width;
+          }
+          if(velocity.x < 0) {
+            velocity.x = 0;
+            position.x = block.x + block.width + width;
+          }
+        }
+      }
+    }
+  }
+  void _applyGravity(double dt) {
+    velocity.y += _gravity;
+    velocity.y = velocity.y.clamp(-_jumpForce, _terminalVelocity);
+    position.y += velocity.y * dt;
   }
 
+  void _checkVerticalCollisions() {
+    for(final block in collisionBlocks) {
+      if(block.isPlatform) {
 
+      }else {
+        if(checkCollision(this, block)) {
+          if (velocity.y > 0) {
+            velocity.y = 0;
+            position.y = block.y - width;
+          }
+        }
+      }
+    }
   }
+}
