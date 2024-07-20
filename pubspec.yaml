@@ -62,6 +62,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/HUD/
+    - assets/images/HUD/Joystick.png
+    - assets/images/HUD/Knob.png
     - assets/tiles/
     - assets/images/Terrain/
     - assets/images/Main Characters/Mask Dude/
