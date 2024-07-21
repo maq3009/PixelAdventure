@@ -39,8 +39,9 @@ class PixelAdventure extends FlameGame with HasKeyboardHandlerComponents, DragCa
 
   @override
   void update(double dt) {
-    updateJoystick();
     super.update(dt);
+  _updatePlayerMovement();
+
   }
 
   void addJoystick() {
@@ -62,7 +63,27 @@ class PixelAdventure extends FlameGame with HasKeyboardHandlerComponents, DragCa
     add(joystick);
   }
 
-  
+    void _updatePlayerMovement() {
+    if (joystick.direction == JoystickDirection.idle) {
+      player.horizontalMovement = 0;  // No joystick movement, check keyboard input
+    } else {
+      switch (joystick.direction) {
+        case JoystickDirection.left:
+        case JoystickDirection.upLeft:
+        case JoystickDirection.downLeft:
+          player.horizontalMovement = -1;
+          break;
+        case JoystickDirection.right:
+        case JoystickDirection.upRight:
+        case JoystickDirection.downRight:
+          player.horizontalMovement = 1;
+          break;
+        default:
+          player.horizontalMovement = 0;
+          break;
+      }
+    }
+  }
 
   void updateJoystick() {
     switch (joystick.direction) {
