@@ -13,7 +13,7 @@
                 3
             ],
             "scale": 1.5,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
                 "x": 336,
                 "y": 214.33333333333337
@@ -23,11 +23,11 @@
             "expandedObjectLayers": [
                 2
             ],
-            "scale": 1,
+            "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 320,
-                "y": 183.5
+                "x": 552.6666666666666,
+                "y": 183.49999999999997
             }
         },
         "Pixel_Adventure.tsx": {

@@ -66,6 +66,7 @@ flutter:
     - assets/images/HUD/Joystick.png
     - assets/images/HUD/Knob.png
     - assets/tiles/
+    - assets/images/Background/
     - assets/images/Terrain/
     - assets/images/Main Characters/Mask Dude/
     - assets/images/Main Characters/Ninja Frog/

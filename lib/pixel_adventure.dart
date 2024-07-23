@@ -6,7 +6,7 @@ import 'package:flutter/painting.dart';
 import '../components/player.dart';
 import '../components/level.dart';
 
-class PixelAdventure extends FlameGame with HasKeyboardHandlerComponents, DragCallbacks {
+class PixelAdventure extends FlameGame with HasKeyboardHandlerComponents, HasCollisionDetection, DragCallbacks {
   @override
   Color backgroundColor() => const Color(0xFF211F30);
   late final CameraComponent cam;
